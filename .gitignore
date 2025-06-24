@@ -1,15 +1,26 @@
-# Ambientes virtuais
+# Ambientes virtuais e dependências
 venv/
 .env
-
-# Dados sensíveis ou arquivos de saída
-*.sqlite3
-*.pyc
 __pycache__/
-*.log
-dados/
-drivers/
+*.pyc
 
-# IDEs
+# Dados sensíveis ou gerados
+dados/
+logs/
+*.log
+*.sqlite3
+
+# Arquivos de conversão temporários
+*.docx
+*.pdf
+*.txt
+
+# IDEs e configurações locais
 .vscode/
 .idea/
+
+# Outros
+.DS_Store
+
+drivers/
+
