@@ -4,23 +4,29 @@ venv/
 __pycache__/
 *.pyc
 
-# Dados sensíveis ou gerados
-dados/
+# Dados dinâmicos
+dados/textos_pendentes/
+dados/textos_revisados/
+dados/textos_limpos/
+dados/textos_descartados/
+
+# Logs e banco temporário
+relatorios/log_revisoes.csv
 logs/
 *.log
 *.sqlite3
 
-# Arquivos de conversão temporários
+# Arquivos temporários e de build
 *.docx
 *.pdf
-*.txt
 
-# IDEs e configurações locais
+# IDEs e configs locais
 .vscode/
 .idea/
 
 # Outros
 .DS_Store
 
+# Scripts locais
+inicia_revisor.bat
 drivers/
-
