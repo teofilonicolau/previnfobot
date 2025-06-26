@@ -1,32 +1,51 @@
-# Ambientes virtuais e dependências
+# 🧠 Ambientes virtuais e dependências
 venv/
 .env
 __pycache__/
 *.pyc
 
-# Dados dinâmicos
+# 📂 Dados dinâmicos gerados pelo pipeline
 dados/textos_pendentes/
 dados/textos_revisados/
 dados/textos_limpos/
 dados/textos_descartados/
+dados/textos/.txt
+dados/fontes_convertiveis/
+dados/fontes_extra/
+dados/*.doc
+dados/*.docx
+dados/*.pdf
+dados/*.png
 
-# Logs e banco temporário
+# 📊 Logs e bancos temporários
 relatorios/log_revisoes.csv
+relatorios/*.csv
 logs/
 *.log
 *.sqlite3
 
-# Arquivos temporários e de build
+# 🗃️ Arquivos temporários e auxiliares
 *.docx
 *.pdf
+*.bat
+*.sh
+*.ipynb
+.ipynb_checkpoints/
+executa_tudo.py
+drivers/
 
-# IDEs e configs locais
+# 🧪 Arquivos de teste simulados
+dados/textos_pendentes/exemplo_*.txt
+dados/textos_revisados/exemplo_*.txt
+
+# 🧰 Cache e arquivos do Streamlit
+.streamlit/
+
+# 💻 Configurações locais de IDEs
 .vscode/
 .idea/
-
-# Outros
 .DS_Store
 
-# Scripts locais
+# 🛠️ Scripts auxiliares e executáveis
 inicia_revisor.bat
-drivers/
+inicia_painel_central.bat
