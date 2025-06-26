@@ -3,6 +3,24 @@ import os
 import csv
 from datetime import datetime
 import shutil
+import re
+import webbrowser
+
+# ✅ Função de validação automática do texto limpo
+def validar_texto_limpo(texto):
+    erros = []
+
+    if re.search(r"[^\w\s.,;:!?()-]", texto):
+        erros.append("Caracteres estranhos encontrados")
+
+    if "###" in texto or "..." in texto:
+        erros.append("Ruído de marcação ou pontuação excessiva")
+
+    if not texto.strip():
+        erros.append("Texto vazio ou só com espaços")
+
+    aprovado = len(erros) == 0
+    return {"aprovado": aprovado, "erros": erros}
 
 # 🔄 Função auxiliar para registrar a decisão
 def salvar_decisao(nome_arquivo, decisao):
@@ -60,16 +78,29 @@ with col2:
         st.error("🚫 Arquivo limpo não encontrado.")
         st.stop()
 
+# 🔍 Validação automática
+resultado = validar_texto_limpo(texto_limpo)
+
+if resultado["aprovado"]:
+    st.success("✅ Texto limpo validado com sucesso!")
+else:
+    st.error("⚠️ Problemas detectados no texto limpo:")
+    for erro in resultado["erros"]:
+        st.markdown(f"- {erro}")
+
 # Decisões
 col_a, col_b = st.columns(2)
 
 with col_a:
-    if st.button("✅ Aceitar e mover para textos_limpos/"):
-        shutil.move(caminho_limpo, os.path.join(PASTA_APROVADO, arquivo_selecionado))
-        os.remove(caminho_original)
-        salvar_decisao(arquivo_selecionado, "aceito")
-        st.success("🎉 Texto aceito e movido com sucesso!")
-        st.experimental_rerun()
+    if resultado["aprovado"]:
+        if st.button("✅ Aceitar e mover para textos_limpos/"):
+            shutil.move(caminho_limpo, os.path.join(PASTA_APROVADO, arquivo_selecionado))
+            os.remove(caminho_original)
+            salvar_decisao(arquivo_selecionado, "aceito")
+            st.success("🎉 Texto aceito e movido com sucesso!")
+            st.experimental_rerun()
+    else:
+        st.info("⛔ Corrija os erros antes de aceitar este texto.")
 
 with col_b:
     if st.button("🗑️ Recusar e mover para textos_descartados/"):
@@ -79,3 +110,9 @@ with col_b:
         salvar_decisao(arquivo_selecionado, "descartado")
         st.warning("🚮 Texto descartado.")
         st.experimental_rerun()
+
+# 🔁 Acesso rápido ao Painel Central
+with st.expander("🧩 Gerenciar processamento"):
+    st.markdown("Você também pode abrir o Painel Central de Execução a partir daqui.")
+    if st.button("🎛️ Ir para Painel de Execução"):
+        webbrowser.open_new_tab("http://localhost:8501")
