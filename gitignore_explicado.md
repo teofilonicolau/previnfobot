@@ -1,18 +1,6 @@
-### 📂 1. `.gitignore` – o funcional  
-Esse é o arquivo lido pelo Git. Ele diz: "esses arquivos/pastas não devem ser versionados". Já tá redondinho, e foi o que você atualizou há pouco.
-
----
-
-### 📘 2. `gitignore_explicado.md` – a documentação  
-Esse **não é lido pelo Git**, mas fica salvo no repositório como guia para você (ou outros devs) entenderem por que cada entrada está lá. Ótimo pra projetos compartilhados e onboarding.
-
-#### Conteúdo sugerido:
-
 # 🧾 gitignore_explicado.md
 
 Este documento explica as entradas do arquivo `.gitignore` utilizadas no projeto **Previnfobot**. Serve como referência para devs e contribuidores.
-
----
 
 ## 🔧 Ambiente virtual, cache e build  
 `venv/` &nbsp;&nbsp;→ Pasta com dependências do ambiente Python  
