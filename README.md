@@ -314,5 +314,75 @@ Este aplicativo Streamlit foi desenvolvido para facilitar a revisão humana de t
 
 ---
 
+# 📘 README – Sessão de Implementação com Teófilo (25 de Junho de 2025)
+
+Este documento resume todas as implementações, melhorias e decisões que desenvolvemos hoje no projeto **Previnfobot**, com foco na automação da revisão de textos, melhoria da rastreabilidade e usabilidade da aplicação. 🔍🤖
+
+---
+
+## ✅ O que implementamos hoje
+
+### 🔧 1. Revisão e ajuste do `.gitignore`
+- Corrigimos o uso de `*.txt` (que excluía arquivos importantes) e passamos a ignorar apenas pastas dinâmicas específicas:  
+  `dados/textos_pendentes/`, `dados/textos_revisados/` etc.
+- Resultado: **controle mais seguro sobre o que entra no Git** e garantia de que arquivos realmente úteis são versionados.
+
+---
+
+### 📂 2. Recuperação de branch e commits perdidos
+- Identificamos que os arquivos “sumiram” porque estavam em uma branch paralela.
+- Usamos `git checkout extracao-textual`, validamos os arquivos, e fizemos `git push origin extracao-textual` seguido de um **pull request e merge** para `main`.
+- Resultado: **código recuperado e unido com segurança à linha principal de desenvolvimento**.
+
+---
+
+### 📊 3. Criação do `painel_estatisticas.py`
+- Interface Streamlit que mostra:
+  - Quantidade de textos aceitos vs. descartados
+  - Evolução temporal das decisões
+- Permite uma **análise visual e interativa da produtividade** do revisor.
+
+---
+
+### 🧪 4. Validação automática da limpeza textual
+- Adicionamos a função `validar_texto_limpo()` ao `revisor_visual.py`
+  - Detecta ruído visual (como `...`, `###`, símbolos estranhos)
+  - Impede o aceite de textos sem qualidade mínima
+- Resultado: **garantia de consistência dos dados aprovados**
+
+---
+
+### 👁️ 5. Atualização do `revisor_visual.py`
+- Interface de comparação entre original e limpo
+- Decisões de aceitar ou recusar
+- Registro em `log_revisoes.csv`
+- ✅ Inclusão do botão para abrir o painel de execução (`central_pipeline.py`) diretamente
+
+---
+
+### 🧩 6. Criação do Painel Central – `central_pipeline.py`
+- Interface Streamlit com botões para executar:
+  - limpeza
+  - extração
+  - validação
+  - geração de relatório
+  - **ou a pipeline completa**
+- Resultado: **centralização do controle da aplicação em um único painel**
+
+---
+
+### 🎛️ 7. Botões de acesso cruzado
+- No `painel_estatisticas.py` e no `revisor_visual.py`, adicionamos:
+  - Um botão `🎛️ Ir para Painel de Execução`
+  - Isso abre `http://localhost:8501` se o painel estiver rodando
+
+---
+
+### 🖱️ 8. Criação do `.bat` de acesso rápido
+- `inicia_painel_central.bat`:
+  - Ativa o ambiente virtual
+  - Roda automaticamente o painel `central_pipeline.py`
+
+
 Com carinho,  
 🤖 Desenvolvido com apoio do Copilot e ✊ dedicação de Teófilo
