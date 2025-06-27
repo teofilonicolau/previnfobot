@@ -54,3 +54,7 @@ inicia_painel_central.bat
 dados/vetores/faiss_index/
 
 dados/vetores/faiss_index/
+
+*.http
+*.rest
+
