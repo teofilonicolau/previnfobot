@@ -1,4 +1,4 @@
-﻿# PrevInfoBot
+# PrevInfoBot
 
 Um robô jurídico baseado em RAG (Retrieval-Augmented Generation) que lê PDFs jurídicos, extrai os textos, limpa, fragmenta e indexa os dados para fornecer respostas inteligentes usando modelos de linguagem natural.
 
