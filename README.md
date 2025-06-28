@@ -1,4 +1,4 @@
-﻿# PrevInfoBot
+# PrevInfoBot
 
 Um robô jurídico baseado em RAG (Retrieval-Augmented Generation) que lê PDFs jurídicos, extrai os textos, limpa, fragmenta e indexa os dados para fornecer respostas inteligentes usando modelos de linguagem natural.
 
@@ -386,84 +386,206 @@ Este documento resume todas as implementações, melhorias e decisões que desen
 
 Com carinho,  
 🤖 Desenvolvido com apoio do Copilot e ✊ dedicação de Teófilo
+Claro, Teófilo! Aqui está o `README.md` atualizado com:
 
+- Índice com links clicáveis
+- Link para os arquivos em `docs/` (testes, roadmap, gitignore)
+- Estrutura real do seu projeto com base na árvore que você compartilhou
+- Execução didática e atualizada
 
-# 🧠 PrevInfoBot – Integração RAG Jurídica Previdenciária
+Cole isso direto no seu `README.md` na raiz do projeto:
 
-Este repositório contém o pipeline modular do **PrevInfoBot**, um assistente jurídico previdenciário baseado em RAG (Retrieval-Augmented Generation) com GPT-4 + FAISS. Abaixo estão os componentes implementados e testados nesta fase.
+````markdown
+# ⚖️ PrevInfoBot – Robô Jurídico com IA e RAG
 
----
-
-## ✅ Funcionalidades implementadas
-
-### 1. `indexa_com_faiss.py`
-- Local: `src/indexacao/indexa_com_faiss.py`
-- Função: carrega `.txt` de `dados/textos_limpos/`, fragmenta em chunks e indexa com FAISS usando embeddings da OpenAI.
-- Melhoria: processamento em lotes para evitar erros de memória.
-- Dependências: `langchain-openai`, `tiktoken`, `dotenv`.
-
-### 2. `pergunta_ao_robo.py`
-- Local: `src/rag_pipeline/pergunta_ao_robo.py`
-- Fluxo:
-  1. Carrega o índice FAISS
-  2. Consulta via similaridade semântica
-  3. GPT-4 responde com base no contexto encontrado
-- Uso: interface de terminal que recebe a pergunta e retorna resposta estruturada.
-- Melhorias:
-  - Troca de `.run()` por `.invoke()`
-  - Impressão elegante com `resposta["result"]` tratado
+> Desenvolvido com propósito, escalabilidade e didatismo por Teófilo e assistido pelo Copilot
 
 ---
 
-## ⚒️ Ferramentas utilizadas
+## 📌 Índice
 
-| Ferramenta        | Finalidade                              |
-|-------------------|------------------------------------------|
-| LangChain         | Framework de RAG                         |
-| LangChain Community & OpenAI | Conectores e LLMs via GPT-4          |
-| FAISS             | Indexador vetorial                       |
-| OpenAIEmbeddings  | Vetorização semântica                    |
-| Streamlit         | Interface visual do pipeline de revisão  |
-| Python `.env`     | Gestão de chaves com segurança           |
-
----
-
-## 📂 Pastas envolvidas
-
-- `dados/textos_pendentes/`: onde novos `.txt` devem ser colocados
-- `scripts/limpa_textos_pendentes.py`: limpeza e padronização dos textos
-- `dados/textos_revisados/`: arquivos limpos para revisão
-- `streamlit_apps/revisor_visual.py`: permite aceitar ou descartar textos
-- `dados/textos_limpos/`: base final que será vetorizada
-- `dados/vetores/faiss_index/`: índice final salvo para consulta
+- [🎯 Objetivo](#-objetivo)
+- [🛠️ Stack Tecnológica](#️-stack-tecnológica)
+- [📁 Estrutura do Projeto (atualizada)](#-estrutura-do-projeto-atualizada)
+- [✅ Testes Automatizados](#-testes-automatizados)
+- [🧠 Pipeline Geral](#-pipeline-geral)
+- [🖱️ Como Executar](#️-como-executar)
+- [📚 Documentação complementar](#-documentação-complementar)
+- [🧩 Expansão futura](#-expansão-futura)
 
 ---
 
-## 🧪 Exemplo de uso
+## 🎯 Objetivo
 
-```bash
-# Etapa 1 – Adicionar arquivo novo
-→ Salvar em: dados/textos_pendentes/
+Criar um assistente jurídico especializado em **Direito Previdenciário**, capaz de:
 
-# Etapa 2 – Limpeza
-python scripts/limpa_textos_pendentes.py
+- Processar documentos em lote (.pdf, .docx, imagens)
+- Realizar limpeza e revisão com validação semiautomática
+- Gerar respostas jurídicas com base em jurisprudência e normas
+- Ser acessado por API ou interface visual (Streamlit)
 
-# Etapa 3 – Revisão manual (opcional)
-python -m streamlit run streamlit_apps/revisor_visual.py
+---
 
-# Etapa 4 – Indexar
-python src/indexacao/indexa_com_faiss.py
+## 🛠️ Stack Tecnológica
 
-# Etapa 5 – Perguntar ao robô
-python src/rag_pipeline/pergunta_ao_robo.py
+| Tecnologia        | Função Principal                       |
+|-------------------|----------------------------------------|
+| Python + FastAPI  | Backend e serviços REST                |
+| LangChain + FAISS | Vetorização e RAG                      |
+| GPT-4 (OpenAI)     | Geração de respostas                   |
+| Streamlit         | Revisão visual e dashboards            |
+| Pytest + pytest-cov| Testes automatizados                   |
+
+---
+
+## 📁 Estrutura do Projeto (atualizada)
+
+```
+PREVINFOBOT-CORRETO/
+├── app/
+│   ├── api/router.py
+│   ├── core/
+│   └── services/
+│       ├── hash_utils.py
+│       ├── limpeza.py
+│       └── rag.py
+│
+├── dados/
+│   ├── pdfs_coletados/
+│   ├── textos_pendentes/
+│   ├── textos_revisados/
+│   ├── textos_limpos/
+│   └── vetores/faiss_index/
+│
+├── scripts/
+│   ├── extrai_e_limpa_drive.py
+│   ├── limpa_textos_pendentes.py
+│   ├── gera_relatorio_csv.py
+│   ├── valida_textos.py
+│   └── mover_textos_suspeitos.py
+│
+├── streamlit_apps/
+│   ├── revisor_visual.py
+│   ├── painel_estatisticas.py
+│   └── central_pipeline.py
+│
+├── tests/
+│   ├── test_api.py
+│   ├── test_hash_utils.py
+│   ├── test_limpeza.py
+│   └── test_estrutura.py
+│
+├── converte_doc_para_docx.py
+├── renomeador_doc_inteligente.py
+├── executa_tudo.py
+├── execute_pipeline.py
+├── inicia_painel_central.bat
+├── inicia_revisor.bat
+├── requirements.txt
+├── .env
+├── .gitignore
+└── docs/
+    ├── testes.md
+    ├── ROADMAP.md
+    └── gitignore_explicado.md
 ```
 
 ---
 
-## 📌 Observações
+## ✅ Testes Automatizados
 
-- O `.env` deve conter a variável `OPENAI_API_KEY`
-- O arquivo `.env` já está listado no `.gitignore`
-- Com base na pergunta feita, o robô responde contextualizadamente
-- Respostas sem dados retornam feedback seguro, sem inventar fatos
+Rodar:
+
+```powershell
+$env:PYTHONPATH="."
+pytest --cov=app tests/
+```
+
+Cobertura atual:
+
+- `router.py`: 100%
+- `hash_utils.py`: 100%
+- `limpeza.py`: 100%
+- `rag.py`: 77%
+
+Total: **68%**
+
+> Mais detalhes em: [✅ Testes Automatizados](docs/testes.md)
+
+---
+
+## 🧠 Pipeline Geral
+
+| Etapa                        | Status |
+|-----------------------------|--------|
+| Extração e OCR              | ✅     |
+| Limpeza de textos brutos    | ✅     |
+| Validação automática        | ✅     |
+| Revisão visual em Streamlit | ✅     |
+| Geração de log e relatório  | ✅     |
+| Vetorização com FAISS       | ✅     |
+| Integração RAG + GPT-4      | ✅     |
+| API REST (FastAPI)          | ✅     |
+
+---
+
+## 🖱️ Como Executar
+
+```powershell
+# Ativar ambiente virtual
+.\venv\Scripts\Activate.ps1
+
+# Instalar dependências
+pip install -r requirements.txt
+
+# Rodar pipeline completa
+python executa_tudo.py
+
+# Iniciar API local
+uvicorn app.main:app --reload
+
+# Abrir interface de revisão
+streamlit run streamlit_apps/central_pipeline.py
+```
+
+Ou use os atalhos `.bat`:
+
+- `inicia_painel_central.bat`
+- `inicia_revisor.bat`
+
+---
+
+## 📚 Documentação complementar
+
+- [📌 Roadmap de evolução](docs/ROADMAP.md)
+- [✅ Testes Automatizados](docs/testes.md)
+- [🧾 Explicação do .gitignore](docs/gitignore_explicado.md)
+
+---
+
+## 🧩 Expansão futura
+
+- [ ] Exportar respostas como `.pdf`
+- [ ] Treinar modelos locais com jurisprudência
+- [ ] GitHub Actions com CI/CD dos testes
+- [ ] Expansão para outras áreas do Direito
+
+---
+
+---
+
+## 📊 Análise Léxica Interativa
+
+Agora o projeto conta com um painel visual para **análise de termos mais frequentes** nos textos já limpos. Isso permite verificar se a base está cobrindo bem os temas jurídicos esperados.
+
+### ▶️ Como rodar
+
+```powershell
+.\venv\Scripts\Activate.ps1
+streamlit run streamlit_apps\analisador_lexico.py
+
+🧠 *Automação com rastreabilidade e propósito. Esse é o PrevInfoBot.*
+
+Comandado por **Teófilo Nicolau**, com apoio do Copilot ⚖️
+````
 

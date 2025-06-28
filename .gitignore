@@ -49,4 +49,11 @@ dados/textos_revisados/exemplo_*.txt
 # 🛠️ Scripts auxiliares e executáveis
 inicia_revisor.bat
 inicia_painel_central.bat
+
+# Evita subir arquivos de índice vetorial pesados
+dados/vetores/faiss_index/
 dados/vetores/
+
+# Arquivos de requisição HTTP/REST (testes de API)
+*.http
+*.rest
