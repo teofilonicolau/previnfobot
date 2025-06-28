@@ -52,9 +52,8 @@ inicia_painel_central.bat
 
 # Evita subir arquivos de índice vetorial pesados
 dados/vetores/faiss_index/
+dados/vetores/
 
-dados/vetores/faiss_index/
-
+# Arquivos de requisição HTTP/REST (testes de API)
 *.http
 *.rest
-

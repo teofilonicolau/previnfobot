@@ -386,3 +386,84 @@ Este documento resume todas as implementações, melhorias e decisões que desen
 
 Com carinho,  
 🤖 Desenvolvido com apoio do Copilot e ✊ dedicação de Teófilo
+
+
+# 🧠 PrevInfoBot – Integração RAG Jurídica Previdenciária
+
+Este repositório contém o pipeline modular do **PrevInfoBot**, um assistente jurídico previdenciário baseado em RAG (Retrieval-Augmented Generation) com GPT-4 + FAISS. Abaixo estão os componentes implementados e testados nesta fase.
+
+---
+
+## ✅ Funcionalidades implementadas
+
+### 1. `indexa_com_faiss.py`
+- Local: `src/indexacao/indexa_com_faiss.py`
+- Função: carrega `.txt` de `dados/textos_limpos/`, fragmenta em chunks e indexa com FAISS usando embeddings da OpenAI.
+- Melhoria: processamento em lotes para evitar erros de memória.
+- Dependências: `langchain-openai`, `tiktoken`, `dotenv`.
+
+### 2. `pergunta_ao_robo.py`
+- Local: `src/rag_pipeline/pergunta_ao_robo.py`
+- Fluxo:
+  1. Carrega o índice FAISS
+  2. Consulta via similaridade semântica
+  3. GPT-4 responde com base no contexto encontrado
+- Uso: interface de terminal que recebe a pergunta e retorna resposta estruturada.
+- Melhorias:
+  - Troca de `.run()` por `.invoke()`
+  - Impressão elegante com `resposta["result"]` tratado
+
+---
+
+## ⚒️ Ferramentas utilizadas
+
+| Ferramenta        | Finalidade                              |
+|-------------------|------------------------------------------|
+| LangChain         | Framework de RAG                         |
+| LangChain Community & OpenAI | Conectores e LLMs via GPT-4          |
+| FAISS             | Indexador vetorial                       |
+| OpenAIEmbeddings  | Vetorização semântica                    |
+| Streamlit         | Interface visual do pipeline de revisão  |
+| Python `.env`     | Gestão de chaves com segurança           |
+
+---
+
+## 📂 Pastas envolvidas
+
+- `dados/textos_pendentes/`: onde novos `.txt` devem ser colocados
+- `scripts/limpa_textos_pendentes.py`: limpeza e padronização dos textos
+- `dados/textos_revisados/`: arquivos limpos para revisão
+- `streamlit_apps/revisor_visual.py`: permite aceitar ou descartar textos
+- `dados/textos_limpos/`: base final que será vetorizada
+- `dados/vetores/faiss_index/`: índice final salvo para consulta
+
+---
+
+## 🧪 Exemplo de uso
+
+```bash
+# Etapa 1 – Adicionar arquivo novo
+→ Salvar em: dados/textos_pendentes/
+
+# Etapa 2 – Limpeza
+python scripts/limpa_textos_pendentes.py
+
+# Etapa 3 – Revisão manual (opcional)
+python -m streamlit run streamlit_apps/revisor_visual.py
+
+# Etapa 4 – Indexar
+python src/indexacao/indexa_com_faiss.py
+
+# Etapa 5 – Perguntar ao robô
+python src/rag_pipeline/pergunta_ao_robo.py
+```
+
+---
+
+## 📌 Observações
+
+- O `.env` deve conter a variável `OPENAI_API_KEY`
+- O arquivo `.env` já está listado no `.gitignore`
+- Com base na pergunta feita, o robô responde contextualizadamente
+- Respostas sem dados retornam feedback seguro, sem inventar fatos
+
