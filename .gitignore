@@ -52,5 +52,4 @@ inicia_painel_central.bat
 
 # Evita subir arquivos de índice vetorial pesados
 dados/vetores/faiss_index/
-
-dados/vetores/faiss_index/
+dados/vetores/
