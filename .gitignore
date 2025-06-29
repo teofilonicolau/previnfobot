@@ -57,3 +57,6 @@ dados/vetores/
 # Arquivos de requisição HTTP/REST (testes de API)
 *.http
 *.rest
+
+coverage.xml
+
